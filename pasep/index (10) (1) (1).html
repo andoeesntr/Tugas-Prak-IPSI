@@ -1,0 +1,803 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Pasep Garage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+
+    .menu-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.5s, transform 0.5s;
+    }
+
+    .menu-tabs {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .menu-tab {
+        margin: 0 15px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 18px;
+        color: black;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .menu-tab.active {
+        color: red;
+    }
+
+    .menu-tab.active::after {
+        content: '';
+        display: block;
+        width: 50%;
+        height: 2px;
+        background-color: red;
+        margin: 0 auto;
+        margin-top: 5px;
+    }
+
+    .menu-title {
+        margin-top: 20px;
+        font-size: 24px;
+        color: gray;
+    }
+
+    .category-title {
+        margin-top: 10px;
+        font-size: 32px;
+        font-weight: bold;
+        color: red;
+    }
+
+    .menu-content {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 30px;
+    }
+
+    .menu-item {
+        text-align: center;
+    }
+
+    .menu-item img {
+        width: 200px;
+        height: 200px;
+        border-radius: 10px;
+    }
+
+    .menu-item h4 {
+        margin-top: 10px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .menu-item p {
+        color: gray;
+        font-size: 14px;
+    }
+
+    .content {
+        margin-top: 100px; /* Sesuaikan dengan tinggi header */
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000; /* Agar tetap berada di atas elemen lain */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Opsional, memberikan efek bayangan */
+        background-color: white;
+    }
+
+
+    section {
+        padding-top: 80px; /* Adjust padding-top agar section tidak tertutup navbar */
+    }
+
+    *   {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background: url('Users\lenovo\Downloads\pasep\coba123.jpg') no-repeat center center;
+            background-size: cover;
+        }
+
+        .booking-container {
+            display: flex;
+            width: 100%;
+            max-width: 1500px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            overflow: hidden;
+        }
+
+        .left-content {
+            flex: 1;
+            padding: 50px;
+        }
+
+        .left-content h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .left-content p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .right-content {
+            flex: 1;
+            position: relative; /* Dibutuhkan untuk pseudo-element */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+        }
+
+        .right-content::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Memastikan tepat di tengah */
+            width: 80%; /* Ubah sesuai kebutuhan */
+            height: 100%; /* Ubah sesuai kebutuhan */
+            background: rgba(241, 0, 4, 0.9);
+            z-index: 0; /* Di bawah konten form */
+            border-radius: 20px; /* Opsional */
+        }
+
+        .form-container {
+            width: 80%;
+            max-width: 400px;
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(126, 92, 92, 0.1);
+            position: relative;
+            z-index: 1; /* Pastikan form di atas background merah */
+        }
+
+        .form-container h2 {
+            text-align: center;
+            color: #d32426;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container input,
+        .form-container select,
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            background: #002654;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background: #004080;
+        }
+    
+        
+
+</style>
+
+
+</head>
+<body class="bg-gray-100">
+<!-- Navbar -->
+<nav class="bg-teal-700 text-white sticky top-0 z-50 shadow-md">
+    <div class="container mx-auto flex justify-between items-center py-4 px-4 lg:px-0">
+        <!-- Logo -->
+        <div class="flex items-center space-x-4">
+            <a href="#home" class="flex items-center">
+                <img 
+                    alt="Logo Perusahaan" 
+                    class="h-10" 
+                    src="C:\Users\lenovo\Downloads\pasep\pasep.png"
+                    width="100"
+                />
+            </a>
+        </div>
+ 
+        <!-- Menu Desktop -->
+        <div class="hidden md:flex items-center space-x-6">
+            <a class="text-lg font-semibold hover:underline" href="#home">HOME</a>
+            <a class="text-lg font-semibold hover:underline" href="#about">ABOUT</a>
+            <a class="text-lg font-semibold hover:underline" href="#sparepart">SPAREPART</a>
+            <a class="text-lg font-semibold hover:underline" href="#booking">BOOKING</a>
+            <a class="text-lg font-semibold hover:underline" href="#contact">CONTACT</a>
+        </div>
+ 
+        <!-- Burger Menu for Mobile -->
+        <button id="burger-menu" class="block md:hidden">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+ 
+    <!-- Menu Mobile -->
+    <div id="mobile-menu" class="hidden bg-teal-600 md:hidden">
+        <a class="block py-2 px-4 text-lg font-semibold hover:bg-teal-500" href="#home">HOME</a>
+        <a class="block py-2 px-4 text-lg font-semibold hover:bg-teal-500" href="#about">ABOUT</a>
+        <a class="block py-2 px-4 text-lg font-semibold hover:bg-teal-500" href="#sparepart">SPAREPART</a>
+        <a class="block py-2 px-4 text-lg font-semibold hover:bg-teal-500" href="#booking">BOOKING</a>
+        <a class="block py-2 px-4 text-lg font-semibold hover:bg-teal-500" href="#contact">CONTACT</a>
+    </div>
+ </nav>
+ 
+ <script>
+    // Function to close the mobile menu
+    function closeMobileMenu() {
+        mobileMenu.classList.add('hidden');
+    }
+ 
+    // Mobile Menu Toggle
+    const burgerMenu = document.getElementById('burger-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+ 
+    burgerMenu.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+ 
+    // Add event listeners to mobile menu links
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            closeMobileMenu(); // Close the menu when a link is clicked
+        });
+    });
+ 
+    // Scroll Offset Adjustment
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+ 
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+ 
+            if (targetElement) {
+                const offset = 80; // Navbar height
+                const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+                const offsetPosition = elementPosition - offset;
+ 
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+ 
+                // Close the mobile menu after navigating
+                closeMobileMenu();
+            }
+        });
+    });
+ </script>
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden bg-teal-600 md:hidden">
+            <a class="block py-2 px-4 text-lg font-semibold hover:bg-teal-500" href="#home">HOME</a>
+            <a class="block py-2 px-4 text-lg font-semibold hover:bg-teal-500" href="#about">ABOUT</a>
+            <a class="block py-2 px-4 text-lg font-semibold hover:bg-teal-500" href="#sparepart">SPAREPART</a>
+            <a class="block py-2 px-4 text-lg font-semibold hover:bg-teal-500" href="#booking">BOOKING</a>
+            <a class="block py-2 px-4 text-lg font-semibold hover:bg-teal-500" href="#contact">CONTACT</a>
+        </div>
+    </nav>
+
+
+    <script>
+        // Mobile Menu Toggle
+        const burgerMenu = document.getElementById('burger-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        burgerMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Scroll Offset Adjustment
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    const offset = 80; // Tinggi navbar
+                    const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+                    const offsetPosition = elementPosition - offset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+
+    <!-- Bagian Home -->
+    <section class="bg-gray-100 py-24" id="home">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4 animate__animated animate__fadeIn">Selamat Datang di Pasep Garage!</h2>
+            <p class="text-lg text-gray-600 mb-6 animate__animated animate__fadeIn animate__ delay-1s">Solusi satu atap untuk semua kebutuhan otomotif Anda. Kami menyediakan berbagai sparepart dan service dengan harga terjangkau.</p>
+            <p class="text-lg text-gray-600 mb-6 animate__animated animate__fadeIn animate__delay-2s">Nikmati layanan pelanggan 24/7, Booking service, spare part kendaraan bermotor yang komplit dengan harga terjangkau</p>
+            <a class="bg-teal-700 text-white px-4 py-2 rounded hover:bg-teal-600 animate__animated animate__fadeIn animate__delay-3s" href="#about">Jelajahi Tentang Kami</a>
+        </div>
+    </section>
+    <!-- Bagian About -->
+    <section class="bg-gray-900 text-gray-300 py-12" id="about">
+        <div class="max-w-md mx-auto p-6">
+            <h1 class="text-xl font-bold mb-4 animate__animated animate__fadeIn">ABOUT</h1>
+            <div class="flex items-center mb-4 animate__animated animate__fadeIn">
+                <img alt="WaOne Bengkel Online logo with a hexagon and stylized W" class="w-15 h-20" src="C:/Users/lenovo/Downloads/pasep.png"/>
+                <div>
+                    <h2 class="text-4xl font-bold text-orange-500">Pasep<span class="text-teal-500">Garage</span></h2>
+                    <h3 class="text-2xl text-gray-500">Bengkel Motor</h3>
+                </div>
+            </div>
+            <p class="text-sm leading-relaxed animate__animated animate__fadeIn animate__delay-1s">
+                PasepGarage Bengkel adalah website bengkel yang menjual berbagai macam aksesoris dan sparepart serta service yang cepat dan terpercaya motor yang menggunakan sistem untuk memudahkan anda berkonsultasi masalah di motor anda.
+            </p>
+            </p>
+            <!-- Tambahan Konten -->
+            <h2 class="text-2xl font-bold mt-6 animate__animated animate__fadeIn animate__delay-2s">Visi dan Misi</h2>
+            <p class="text-sm leading-relaxed animate__animated animate__fadeIn animate__delay-3s">
+                Menjadi platform digital terpercaya yang memberikan kemudahan, transparansi, dan kenyamanan kepada pelanggan dalam mengakses layanan bengkel, mendukung efisiensi operasional, serta mendorong kemajuan bisnis bengkel menuju era digital.
+            <h2 class="text-2xl font-bold mt-6 animate__animated animate__fadeIn animate__delay-4s">Mengapa Memilih Kami?</h2>
+            <ul class="list-disc list-inside animate__animated animate__fadeIn animate__delay-5s">
+                <li>Beragam pilihan produk dengan harga bersaing.</li>
+                <li>Service cepat dan aman.</li>
+                <li>Layanan pelanggan yang siap membantu 24/7.</li>
+                <li>Transaksi yang aman dan terpercaya.</li>
+            </ul>
+        </div>
+    </section>
+    <!-- Bagian Sparepart -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+</head>
+<body class="bg-gray-100">
+    <div class="flex justify-center mb-6">
+        <input 
+            type="text" 
+            id="searchBar" 
+            placeholder="Cari sparepart..." 
+            class="border border-gray-300 p-2 rounded w-full md:w-1/2 lg:w-1/3"
+            oninput="searchSparepart()"
+        />
+    </div>    
+    <div class="menu-container p-6" id="sparepart">
+        <nav class="menu-tabs flex justify-around mb-6">
+            <span class="menu-tab active cursor-pointer p-2 text-lg font-semibold text-gray-700 border-b-2 border-blue-500" onclick="showCategory('Oli Motor')">Oli</span>
+            <span class="menu-tab cursor-pointer p-2 text-lg font-semibold text-gray-700" onclick="showCategory('Karbu Motor')">Karbu</span>
+            <span class="menu-tab cursor-pointer p-2 text-lg font-semibold text-gray-700" onclick="showCategory('Ban Motor')">Ban</span>
+            <span class="menu-tab cursor-pointer p-2 text-lg font-semibold text-gray-700" onclick="showCategory('Lampu Motor')">Lampu</span>
+        </nav>
+        <h2 class="menu-title text-2xl font-bold text-center mb-4">Sparepart</h2>
+        <h3 class="category-title text-xl font-semibold text-center mb-6" id="category-title">Motor</h3>
+        <div class="menu-content grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6" id="menu-content">
+            <!-- Konten akan diganti sesuai kategori -->
+        </div>
+        <div class="flex justify-center mb-6">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded" onclick="document.getElementById('formModal').classList.remove('hidden')">Tambah Data</button>
+        </div>
+    </div>
+    <script>
+        function searchSparepart() {
+            const searchTerm = document.getElementById('searchBar').value.toLowerCase();
+            const filteredItems = menuData[activeCategory].filter(item => 
+                item.title.toLowerCase().includes(searchTerm) || 
+                item.desc.toLowerCase().includes(searchTerm)
+            );
+
+            const menuContent = document.getElementById('menu-content');
+            menuContent.innerHTML = '';
+
+            if (filteredItems.length > 0) {
+                filteredItems.forEach((item, index) => {
+                    const menuItem = document.createElement('div');
+                    menuItem.className = 'menu-item p-4 flex flex-col items-center bg-white rounded shadow-md transition-transform transform hover:scale-105';
+                    menuItem.innerHTML = `
+                        <img src="${item.img}" alt="${item.title}" class="mb-4 rounded-lg shadow-lg" height="200" width="200" />
+                        <h4 class="text-lg font-semibold mb-2">${item.title}</h4>
+                        <p class="text-sm text-gray-600">${item.desc}</p>
+                        <button class="bg-yellow-500 text-white px-2 py-1 rounded mt-2" onclick="editData(${index})">Edit</button>
+                    `;
+                    menuContent.appendChild(menuItem);
+                });
+            } else {
+                menuContent.innerHTML = '<p class="text-center text-gray-500">Tidak ada hasil ditemukan.</p>';
+            }
+        }
+
+        function showCategory(category) {
+            const categoryTitle = document.getElementById('category-title');
+            categoryTitle.textContent = category;
+
+            document.querySelectorAll('.menu-tab').forEach(tab => {
+                tab.classList.remove('active');
+                tab.classList.remove('border-blue-500');
+            });
+            const activeTab = Array.from(document.querySelectorAll('.menu-tab')).find(tab => tab.textContent === category.split(' ')[0]);
+            if (activeTab) {
+                activeTab.classList.add('active');
+                activeTab.classList.add('border-blue-500');
+            }
+
+            activeCategory = category;
+
+            // Reset pencarian
+            document.getElementById('searchBar').value = '';
+            searchSparepart();
+        }
+
+    </script>
+    <!-- Form Modal -->
+    <div id="formModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded shadow-lg w-11/12 md:w-1/2 lg:w-1/3">
+            <h2 class="text-2xl font-bold mb-4">Tambah Data</h2>
+            <form id="addDataForm">
+                <div class="mb-4">
+                    <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                    <input type="text" id="title" name="title" class="mt-1 p-2 border border-gray-300 rounded w-full" required>
+                </div>
+                <div class="mb-4">
+                    <label for="desc" class="block text-sm font-medium text-gray-700">Description</label>
+                    <textarea id="desc" name="desc" class="mt-1 p-2 border border-gray-300 rounded w-full" required></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="img" class="block text-sm font-medium text-gray-700">Image</label>
+                    <input type="file" id="img" name="img" class="mt-1 p-2 border border-gray-300 rounded w-full" accept="image/*">
+                </div>
+                <div id="current-image-container" class="mb-4 hidden">
+                    <p class="text-sm font-medium text-gray-700">Current Image:</p>
+                    <img id="current-image" src="" alt="Current Image" class="mt-2 rounded-lg shadow-lg" />
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" class="bg-black-500 text-black px-4 py-2 rounded mr-2" onclick="closeForm()">Cancel</button>
+                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Menyimpan kategori aktif
+        let activeCategory = 'Oli Motor';
+        let editingIndex = null; // To keep track of the item being edited
+
+        // Data untuk setiap kategori
+        const menuData = {
+            'Oli Motor': [
+                { img: src="C:/Users/lenovo/Downloads/image1.jpg", title: 'Federal Matic 30 Ecomaxx', desc: 'Pelumas Federal Oil dirancang untuk memberikan perlindungan optimal pada mesin, meningkatkan efisiensi bahan bakar, serta memastikan performa kendaraan tetap maksimal, baik untuk penggunaan harian maupun aktivitas berkendara yang lebih berat.' },
+                { img: 'https://placehold.co/200x200', title: 'Yamalube Super Matic', desc: 'Dengan formulasi yang dikembangkan langsung oleh Yamaha, Yamalube Oil menawarkan pelumasan optimal, menjaga suhu mesin tetap stabil, melindungi komponen dari keausan, serta meningkatkan performa dan efisiensi bahan bakar' },
+                { img: 'https://placehold.co/200x200', title: 'AHM Honda Oil MPX2 10W30.', desc: 'Formulasinya yang ramah lingkungan membantu meningkatkan efisiensi bahan bakar sekaligus menjaga performa optimal kendaraan, menjadikannya pilihan ideal untuk pengguna motor matic Honda yang mengutamakan keandalan dan keawetan mesin.' },
+                { img: 'https://placehold.co/200x200', title: 'Shell Advance 4T AX5 15W-40.', desc: 'Shell Advance 4T AX5 15W-40 adalah pelumas motor empat tak berkualitas tinggi yang dirancang untuk memberikan perlindungan maksimal pada mesin, terutama dalam kondisi berkendara yang menantang. Dengan teknologi Active Cleansing, pelumas ini membantu menjaga kebersihan mesin, mengurangi endapan, serta meningkatkan respons dan kehalusan berkendara.' }
+            ],
+            'Karbu Motor': [
+                { img: 'https://placehold.co/200x200', title: 'PE 24', desc: 'karburator performa tinggi yang dirancang untuk memberikan aliran bahan bakar dan udara yang optimal pada mesin motor, sehingga meningkatkan respons dan daya mesin. Dengan diameter venturi 24mm, karburator ini cocok digunakan pada motor dengan kapasitas mesin menengah hingga besar, baik untuk penggunaan harian maupun motor modifikasi' },
+                { img: 'https://placehold.co/200x200', title: 'PE 26', desc: 'karburator performa tinggi dengan diameter venturi 26mm yang dirancang untuk meningkatkan daya dan respons mesin motor, terutama pada motor dengan kapasitas mesin menengah hingga besar. Dengan desain flat slide, karburator ini memberikan aliran udara dan bahan bakar yang lebih stabil dan presisi, memungkinkan akselerasi yang lebih cepat dan daya yang lebih besar.' },
+                { img: 'https://placehold.co/200x200', title: 'PWK 28', desc: 'karburator performa tinggi dengan diameter venturi 28mm yang dirancang untuk memberikan aliran udara dan bahan bakar yang optimal pada motor dengan kapasitas mesin menengah hingga besar. Dengan desain flat-slide dan dilengkapi dengan power valve, PWK 28 memungkinkan pengaturan suplai bahan bakar yang lebih efisien, meningkatkan respons mesin dan akselerasi, serta memberikan performa maksimal di berbagai putaran mesin' },
+                { img: 'https://placehold.co/200x200', title: 'PWK 36', desc: 'PWK 36 dilengkapi dengan power valve, yang mengatur aliran bahan bakar untuk memberikan performa maksimal pada berbagai putaran mesin, sehingga memberikan daya yang lebih besar dan respons yang lebih cepat.' }
+            ],
+            'Ban Motor': [
+                { img: 'https://placehold.co/200x200', title: 'Michelin City Grip (Soft Version)', desc: 'ban motor yang dirancang khusus untuk skuter dan motor matic, dengan fokus pada kenyamanan berkendara dan cengkeraman yang optimal di berbagai kondisi jalan. Versi soft compound dari City Grip menawarkan daya cengkeram lebih baik pada permukaan kering dan basah, membuatnya ideal untuk penggunaan harian di jalan raya' },
+                { img: 'https://placehold.co/200x200', title: 'Pirelli Angel Scooter', desc: 'ban motor yang dirancang khusus untuk skuter dan motor matic, menawarkan kombinasi performa tinggi, kenyamanan, dan daya tahan. Dengan teknologi soft compound, ban ini memberikan cengkeraman yang sangat baik pada permukaan kering dan basah, sehingga cocok untuk penggunaan sehari-hari di berbagai kondisi jalan' },
+                { img: 'https://placehold.co/200x200', title: 'Metzeler Feelfree (Soft Version)', desc: 'ban skuter yang dirancang untuk memberikan performa optimal pada motor matic, dengan fokus pada kenyamanan dan cengkeraman yang lebih baik di berbagai kondisi jalan. Versi soft compound dari Feelfree ini menawarkan traksi superior pada permukaan kering maupun basah, memastikan pengendara tetap merasa aman dan stabil saat berkendara di jalan perkotaan.' },
+                { img: 'https://placehold.co/200x200', title: 'Dunlop ScootSmart', desc: 'Pola tapak ban ScootSmart didesain untuk meningkatkan cengkeraman dan pengendalian, terutama saat melaju di tikungan dan pengereman. Selain itu, ban ini juga dirancang untuk tahan lama dan lebih sedikit mengalami keausan, menjadikannya pilihan yang sangat baik untuk penggunaan harian di jalan perkotaan maupun perjalanan jarak menengah' }
+            ],
+            'Lampu Motor': [
+                { img: 'https://placehold.co/200x200', title: 'Headlamp LED', desc: 'lampu depan motor yang menggunakan teknologi dioda pemancar cahaya (LED) untuk menghasilkan cahaya yang terang dan efisien. Lampu ini semakin populer pada motor modern karena memberikan penerangan yang lebih terang, hemat energi, dan memiliki umur yang lebih panjang dibandingkan dengan lampu halogen tradisional' },
+                { img: 'https://placehold.co/200x200', title: 'Headlamp Xenon (HID - High Intensity Discharge)', desc: 'lampu depan motor yang menggunakan gas xenon dan discharge listrik untuk menghasilkan cahaya yang sangat terang. Lampu ini dikenal dengan penerangannya yang lebih kuat dan jangkauan cahaya yang jauh lebih baik dibandingkan dengan lampu halogen. Teknologi HID menghasilkan cahaya putih terang yang mirip dengan cahaya alami, memberikan visibilitas yang lebih tinggi pada malam hari atau kondisi jalan yang kurang terang.' },
+                { img: 'https://placehold.co/200x200', title: 'Headlamp Projector', desc: 'lampu depan motor yang menggunakan lensa fokus untuk mengarahkan cahaya dengan lebih presisi dan efisien, menciptakan pola sinar yang lebih teratur dan terang. Teknologi ini biasanya ditemukan pada motor sport dan motor premium, di mana pencahayaan yang tepat dan jangkauan cahaya yang jauh sangat dibutuhkan.' },
+                { img: 'https://placehold.co/200x200', title: 'Headlamp DRL (Daytime Running Light)', desc: 'ampu depan yang dirancang untuk menyala secara otomatis saat motor berjalan pada siang hari, dengan tujuan meningkatkan visibilitas kendaraan di jalan. DRL membantu pengendara motor lebih terlihat oleh pengendara lain, sehingga meningkatkan keselamatan di siang hari meskipun kondisi cahaya masih cukup terang.' }
+            ]
+        };
+
+        function showCategory(category) {
+            const categoryTitle = document.getElementById('category-title');
+            categoryTitle.textContent = category;
+
+            document.querySelectorAll('.menu-tab').forEach(tab => {
+                tab.classList.remove('active');
+                tab.classList.remove('border-blue-500');
+            });
+            const activeTab = Array.from(document.querySelectorAll('.menu-tab')).find(tab => tab.textContent === category.split(' ')[0]);
+            if (activeTab) {
+                activeTab.classList.add('active');
+                activeTab.classList.add('border-blue-500');
+            }
+
+            const menuContent = document.getElementById('menu-content');
+            menuContent.innerHTML = '';
+            const items = menuData[category];
+            if (items) {
+                items.forEach((item, index) => {
+                    const menuItem = document.createElement('div');
+                    menuItem.className = 'menu-item p-4 flex flex-col items-center bg-white rounded shadow-md transition-transform transform hover:scale-105';
+                    menuItem.innerHTML = `
+                        <img src="${item.img}" alt="${item.title}" class="mb-4 rounded-lg shadow-lg" height="200" width="200" />
+                        <h4 class="text-lg font-semibold mb-2">${item.title}</h4>
+                        <p class="text-sm text-gray-600">${item.desc}</p>
+                        <button class="bg-yellow-500 text-white px-2 py-1 rounded mt-2" onclick="editData(${index})">Edit</button>
+                    `;
+                    menuContent.appendChild(menuItem);
+                });
+            }
+            activeCategory = category;
+        }
+
+        // Fungsi untuk membuka form dan mengisi data untuk edit
+        function editData(index) {
+            editingIndex = index;
+            const item = menuData[activeCategory][index];
+
+            document.getElementById('title').value = item.title;
+            document.getElementById('desc').value = item.desc;
+            document.getElementById('current-image').src = item.img; // Set current image
+            document.getElementById('formModal').classList.remove('hidden');
+        }
+
+        // Fungsi untuk menambah atau memperbarui data
+        function addData() {
+            const form = document.getElementById('addDataForm');
+            const fileInput = form.img;
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const newItem = {
+                    img: event.target.result,
+                    title: form.title.value,
+                    desc: form.desc.value
+                };
+
+                if (editingIndex !== null) {
+                    menuData[activeCategory][editingIndex] = newItem;
+                    editingIndex = null;
+                } else {
+                    menuData[activeCategory].push(newItem);
+                }
+
+                showCategory(activeCategory);
+                closeForm();
+            };
+
+            if (fileInput.files[0]) {
+                reader.readAsDataURL(fileInput.files[0]);
+            } else if (editingIndex !== null) {
+                const existingItem = menuData[activeCategory][editingIndex];
+                const newItem = {
+                    img: existingItem.img, // Keep the existing image
+                    title: form.title.value,
+                    desc: form.desc.value
+                };
+                menuData[activeCategory][editingIndex] = newItem;
+                editingIndex = null;
+                showCategory(activeCategory);
+                closeForm();
+            }
+        }
+
+        // Fungsi untuk menutup form
+        function closeForm() {
+ document.getElementById('formModal').classList.add('hidden');
+            document.getElementById('addDataForm').reset();
+            document.getElementById('current-image-container').classList.add('hidden'); // Hide current image
+        }
+
+        // Event listener untuk submit form
+        document.getElementById('addDataForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+        addData();
+        });
+
+
+        // Tampilkan kategori default saat halaman dimuat
+        window.onload = () => showCategory(activeCategory);
+    </script>
+
+
+
+    <!-- Section Right: Booking Form -->
+    <div class="booking-container">
+        <div class="left-content">
+            <h1>Certified and Award Winning Car Repair Service Provider</h1>
+            <p>Eirmod sed tempor lorem ut dolores...</p>
+        </div>
+        <div class="right-content">
+            <div class="form-container">
+                <h2>Book For A Service</h2>
+                <form action="#" method="post">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <div style="display: flex; gap: 10px;">
+                        <select name="service" style="flex: 1;" required>
+                            <option value="">Select A Service</option>
+                            <option value="repair">Repair</option>
+                            <option value="maintenance">Maintenance</option>
+                            <option value="inspection">Inspection</option>
+                        </select>
+                        <input type="date" name="date" style="flex: 1;" required>
+                    </div>
+                    <textarea name="special_request" placeholder="Special Request" rows="4"></textarea>
+                    <button type="submit">BOOK NOW</button>
+                </form>
+            </div>
+        </div>
+    </div>  
+</div>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS
+        (function(){
+            emailjs.init("YXogwFYAJff0wjD2v"); // Replace with your EmailJS user ID
+        })();
+    
+        function sendBookingEmail(event) {
+            event.preventDefault(); // Prevent the default form submission
+    
+            const btn = document.getElementById('booking-button');
+            btn.value = 'Sending...';
+    
+            const serviceID = 'pasep_garagexyz'; // Replace with your actual service ID
+            const templateID = 'pasep_garage_temp'; // Replace with your actual template ID
+    
+            emailjs.sendForm(serviceID, templateID, event.target)
+                .then(() => {
+                    btn.value = 'BOOK NOW';
+                    alert('Permintaan Booking Terkirim!');
+                    document.getElementById('booking-form').reset(); // Reset the form after successful submission
+                }, (err) => {
+                    btn.value = 'BOOK NOW';
+                    alert(JSON.stringify(err));
+                });
+
+            }
+    </script>
+<section class="bg-white py-12" id="contact">
+    <div class="container mx-auto max-w-lg">
+        <p class="text-gray-700 mb-4">
+            hubungi kami jika anda bingung atau kontak langsung kami jika anda ingin bertanya.
+        </p>
+        <form id="contact-form" onsubmit="sendEmail(event)">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <input class="border border-gray-300 p-2 rounded-md w-full" name="user_name" placeholder="Your Name" type="text" id="name" required/>
+                <input class="border border-gray-300 p-2 rounded-md w-full" name="user_email" placeholder="Your Email" type="email" id="email" required/>
+            </div>
+            <div class="mb-4">
+                <input class="border border-gray-300 p-2 rounded-md w-full" name="subject" placeholder="Subject" type="text" id="subject" required/>
+            </div>
+            <div class="mb-4">
+                <textarea class="border border-gray-300 p-2 rounded-md w-full h-32" id="message" name="message" placeholder="Message" required></textarea>
+            </div>
+            <button class="bg-red-600 text-white font-semibold py-2 px-4 rounded-md w-full" type="submit" id="button">SEND MESSAGE</button>
+        </form>
+    </div>
+</section>
+
+<script>
+    // Initialize EmailJS
+    (function(){
+        emailjs.init("YXogwFYAJff0wjD2v"); // Replace with your EmailJS user ID
+    })();
+
+    function sendEmail(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const btn = document.getElementById('button');
+        btn.value = 'Sending...';
+
+        const serviceID = 'service_6whygqk'; // Replace with your actual service ID
+        const templateID = 'template_wowcd3o'; // Replace with your actual template ID
+
+        emailjs.sendForm(serviceID, templateID, event.target)
+            .then(() => {
+                btn.value = 'Send Message';
+                alert('Email Terkirim!');
+                document.getElementById('contact-form').reset(); // Reset the form after successful submission
+            }, (err) => {
+                btn.value = 'Send Message';
+                alert(JSON.stringify(err));
+            });
+    }
+</script>
+<script> src="main.js"</script>
+        </div>
+    </section>
+    <<!-- Footer Section -->
+    <footer class="bg-black text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-between">
+                <script src="https://cdn.tailwindcss.com"></script>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+            </head>
+            <body class="bg-gray-900 text-white">
+                <div class="container mx-auto p-4">
+                    <!-- Quick Links Section -->
+                    <div class="w-full md:w-1/4 mb-6 md:mb-0">
+                        <h2 class="text-xl font-bold mb-4">Quick Links</h2>
+                        <ul class="space-y-2">
+                            <li>
+                                <button class="hover:text-gray-300" onclick="scrollToSection('home')">Home</button>
+                            </li>
+                            <li>
+                                <button class="hover:text-gray-300" onclick="scrollToSection('about')">About Us</button>
+                            </li>
+                            <li>
+                                <button class="hover:text-gray-300" onclick="scrollToSection('sparepart')">Sparepart</button>
+                            </li>
+                            <li>
+                                <button class="hover:text-gray-300" onclick="scrollToSection('booking')">Booking</button>
+                            </li>
+                            <li>
+                                <button class="hover:text-gray-300" onclick="scrollToSection('contact')">Contact</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            
+                <script>
+                    function scrollToSection(sectionId) {
+                        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+                    }
+                </script>
+                <!-- About Us Section -->
+                <div class="w-full md:w-1/4 mb-6 md:mb-0">
+                    <h2 class="text-xl font-bold mb-4">About Us</h2>
+                    <p>PasepGarage Bengkel adalah website bengkel yang menjual berbagai macam aksesoris dan sparepart serta service yang cepat dan terpercaya motor yang menggunakan sistem untuk memudahkan anda berkonsultasi masalah di motor anda.</p>
+                </div>
+    
+                <!-- Contact Us Section -->
+                <div class="w-full md:w-1/4 mb-6 md:mb-0">
+                    <h2 class="text-xl font-bold mb-4">Contact Us</h2>
+                    <p><i class="fas fa-map-marker-alt mr-2"></i><a href="https://maps.app.goo.gl/XPucJWeBxYvMwBeCA" class="text-white" target="_blank">Pasep Garage, Cimahi</a></p>
+                    <p><i class="fas fa-phone mr-2"></i><a href="https://wa.me/6282117718448" class="text-white" target="_blank">+62 821 1771 8448</a></p>
+                    <p><i class="fas fa-envelope mr-2"></i><a href="mailto:pasepgarage@mailto.plus" class="text-white">pasepgarage@mailto.plus</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
